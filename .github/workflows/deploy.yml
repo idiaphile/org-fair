@@ -10,6 +10,9 @@ name: Deploy to GitHub Pages
 on:
   # TODO C1: run on every push to the main branch, and also by hand
   # (workflow_dispatch:).
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -29,9 +32,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.47.7'
           channel: stable
           cache: true
       - run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos
+
       # A failing test stops the job here: nothing is deployed.
       - run: flutter test
       - name: Build the web app
@@ -47,7 +55,7 @@ jobs:
           --dart-define=CMS_URL=${{ vars.CMS_URL }}
           --dart-define=SANITY_PROJECT_ID=${{ vars.SANITY_PROJECT_ID }}
           --dart-define=SANITY_DATASET=${{ vars.SANITY_DATASET }}
-          
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build/web
