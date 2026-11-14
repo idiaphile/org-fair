@@ -53,9 +53,9 @@ jobs:
           --base-href "/${{ github.event.repository.name }}/"
           --dart-define=CMS=${{ vars.CMS }}
           --dart-define=CMS_URL=${{ vars.CMS_URL }}
-          --dart-define=SANITY_PROJECT_ID=${{ vars.SANITY_PROJECT_ID }}
-          --dart-define=SANITY_DATASET=${{ vars.SANITY_DATASET }}
-
+          --dart-define=CMS_PROJECT=${{ vars.CMS_PROJECT }}
+          --dart-define=CMS_DATASET=${{ vars.CMS_DATASET }}
+          
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build/web
