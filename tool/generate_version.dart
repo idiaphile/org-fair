@@ -20,6 +20,4 @@ void main() {
       'environment': 'production',
     }),
   );
-
-  print('Generated build/web/version.json');
 }

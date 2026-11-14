@@ -15,9 +15,7 @@
 // then run: flutter run --dart-define-from-file=cms.json
 import 'package:http/http.dart' as http;
 
-import 'data/cms/contentful_source.dart';
 import 'data/cms/sanity_source.dart';
-import 'data/cms/strapi_source.dart';
 import 'data/event_source.dart';
 import 'data/sample_events.dart';
 
@@ -38,12 +36,6 @@ const cmsToken = String.fromEnvironment('CMS_TOKEN');
 /// Without CMS=..., the app uses the built-in sample events.
 EventSource createEventSource(http.Client client) {
   return switch (cmsName) {
-    'strapi' => StrapiEventSource(client, baseUrl: cmsUrl, token: cmsToken),
-    'contentful' => ContentfulEventSource(
-      client,
-      spaceId: cmsSpace,
-      token: cmsToken,
-    ),
     'sanity' => SanityEventSource(
       client,
       projectId: cmsProject,
